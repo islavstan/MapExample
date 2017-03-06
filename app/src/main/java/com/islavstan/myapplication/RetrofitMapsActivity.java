@@ -159,6 +159,7 @@ public class RetrofitMapsActivity  extends FragmentActivity implements OnMapRead
                         String placeName = response.body().getResults().get(i).getName();
                         String vicinity = response.body().getResults().get(i).getVicinity();
                         MarkerOptions markerOptions = new MarkerOptions();
+                        //Значение latLng для положения маркера на карте
                         LatLng latLng = new LatLng(lat, lng);
                         // Position of Marker on Map
                         markerOptions.position(latLng);
@@ -167,10 +168,13 @@ public class RetrofitMapsActivity  extends FragmentActivity implements OnMapRead
                         // Adding Marker to the Camera.
                         Marker m = mMap.addMarker(markerOptions);
                         // Adding colour to the marker
-                        markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                      //  markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                          //устанавливаем свою иконку
+                        m.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map2));
+
                         // move map camera
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+                       mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
                     }
                 } catch (Exception e) {
                     Log.d("onResponse", "There is an error");
@@ -254,6 +258,7 @@ public class RetrofitMapsActivity  extends FragmentActivity implements OnMapRead
     }
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
+
     public boolean checkLocationPermission(){
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
