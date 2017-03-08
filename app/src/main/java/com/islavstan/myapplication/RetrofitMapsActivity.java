@@ -66,8 +66,7 @@ public class RetrofitMapsActivity  extends FragmentActivity implements OnMapRead
         if (!isGooglePlayServicesAvailable()) {
             Log.d("onCreate", "Google Play Services not available. Ending Test case.");
             finish();
-        }
-        else {
+        } else {
             Log.d("onCreate", "Google Play Services available. Continuing.");
         }
 
@@ -80,8 +79,8 @@ public class RetrofitMapsActivity  extends FragmentActivity implements OnMapRead
     private boolean isGooglePlayServicesAvailable() {
         GoogleApiAvailability googleAPI = GoogleApiAvailability.getInstance();
         int result = googleAPI.isGooglePlayServicesAvailable(this);
-        if(result != ConnectionResult.SUCCESS) {
-            if(googleAPI.isUserResolvableError(result)) {
+        if (result != ConnectionResult.SUCCESS) {
+            if (googleAPI.isUserResolvableError(result)) {
                 googleAPI.getErrorDialog(this, result,
                         0).show();
             }
@@ -95,6 +94,10 @@ public class RetrofitMapsActivity  extends FragmentActivity implements OnMapRead
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        LatLng dnepr = new LatLng(48.45,34.98);
+      //  mMap.addMarker(new MarkerOptions().position(dnepr).title("Marker in Dnepr"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(dnepr));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(10));
 
         //Initialize Google Play Services
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -168,13 +171,13 @@ public class RetrofitMapsActivity  extends FragmentActivity implements OnMapRead
                         // Adding Marker to the Camera.
                         Marker m = mMap.addMarker(markerOptions);
                         // Adding colour to the marker
-                      //  markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
-                          //устанавливаем свою иконку
+                        //  markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+                        //устанавливаем свою иконку
                         m.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.map2));
 
                         // move map camera
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-                       mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+                        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
                     }
                 } catch (Exception e) {
                     Log.d("onResponse", "There is an error");
@@ -186,7 +189,6 @@ public class RetrofitMapsActivity  extends FragmentActivity implements OnMapRead
             public void onFailure(Call<Example> call, Throwable t) {
                 Log.d("onFailure", t.toString());
             }
-
 
 
         });
@@ -259,7 +261,7 @@ public class RetrofitMapsActivity  extends FragmentActivity implements OnMapRead
 
     public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
 
-    public boolean checkLocationPermission(){
+    public boolean checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
